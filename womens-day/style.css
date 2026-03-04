@@ -246,6 +246,32 @@ h2 {
   scroll-snap-type: x mandatory;
 }
 
+.wd-gallery-wrap {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.wd-gallery-arrow {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px dashed rgba(32, 20, 56, 0.3);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: var(--glow);
+  cursor: pointer;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--ink);
+  transition: transform 0.18s ease;
+}
+
+.wd-gallery-arrow:hover,
+.wd-gallery-arrow:focus-visible {
+  transform: scale(1.08);
+}
+
 .wd-ig-card {
   flex: 0 0 auto;
   width: auto;
@@ -518,6 +544,14 @@ body.disco .topbar {
 
   .wd-click-prompt {
     border-radius: 14px;
+  }
+
+  .wd-gallery-wrap {
+    grid-template-columns: 1fr;
+  }
+
+  .wd-gallery-arrow {
+    display: none;
   }
 
   .wd-click-prompt .btn {

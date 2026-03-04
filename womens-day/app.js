@@ -176,6 +176,24 @@ function initPageEnter() {
 function initWomenGallery() {
   const feed = document.querySelector("[data-wd-gallery]");
   if (!feed) return;
+  const leftButton = document.querySelector("[data-wd-scroll-left]");
+  const rightButton = document.querySelector("[data-wd-scroll-right]");
+
+  function scrollByAmount(direction) {
+    const amount = Math.max(320, Math.floor(feed.clientWidth * 0.75));
+    feed.scrollBy({
+      left: direction * amount,
+      behavior: "smooth",
+    });
+  }
+
+  if (leftButton) {
+    leftButton.addEventListener("click", () => scrollByAmount(-1));
+  }
+
+  if (rightButton) {
+    rightButton.addEventListener("click", () => scrollByAmount(1));
+  }
 
   function prettifyTitle(input) {
     if (!input) return "Women’s Day Memory";

@@ -103,10 +103,14 @@
           Add images to <strong>womens-day/photos</strong> and list them in
           <strong>womens-day/photos/photos.json</strong>. This scroller is separate from the main site gallery.
         </p>
-        <div class="wd-gallery-scroll" data-wd-gallery>
-          <article class="wd-ig-card wd-missing">
-            <div class="wd-ig-caption">Loading Women’s Day photos…</div>
-          </article>
+        <div class="wd-gallery-wrap">
+          <button class="wd-gallery-arrow" type="button" data-wd-scroll-left aria-label="Scroll left">◀</button>
+          <div class="wd-gallery-scroll" data-wd-gallery>
+            <article class="wd-ig-card wd-missing">
+              <div class="wd-ig-caption">Loading Women’s Day photos…</div>
+            </article>
+          </div>
+          <button class="wd-gallery-arrow" type="button" data-wd-scroll-right aria-label="Scroll right">▶</button>
         </div>
       </section>
     </main>
