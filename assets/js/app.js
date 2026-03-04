@@ -546,24 +546,36 @@ function initClickPrompts() {
   const nav = document.querySelector("header nav");
   if (!nav) return;
 
-  const currentPath = (window.location.pathname || "").replace(/\/+$/, "");
-  const links = Array.from(nav.querySelectorAll("a[href]"))
-    .map((a) => {
-      const href = a.getAttribute("href") || "";
-      const label = (a.textContent || "").trim();
-      return { a, href, label };
-    })
-    .filter((item) => item.href && !item.href.startsWith("#") && !item.href.startsWith("mailto:") && !item.href.startsWith("tel:"))
-    .filter((item) => {
-      try {
-        const u = new URL(item.a.href, window.location.href);
-        return u.pathname.replace(/\/+$/, "") !== currentPath;
-      } catch {
-        return false;
-      }
-    });
+  const currentPath = (window.location.pathname || "").toLowerCase();
 
-  if (!links.length) return;
+  function currentKey() {
+    if (currentPath.endsWith("/you.html")) return "you";
+    if (currentPath.endsWith("/moments.html")) return "moments";
+    if (currentPath.endsWith("/gallery.html")) return "gallery";
+    if (currentPath.endsWith("/notes.html")) return "notes";
+    if (currentPath.endsWith("/poetry.html")) return "poetry";
+    if (currentPath.endsWith("/extras.html")) return "extras";
+    if (currentPath.endsWith("/index.html") || currentPath.endsWith("/")) return "home";
+    return "home";
+  }
+
+  const routeOrder = ["you", "home", "moments", "gallery", "notes", "poetry", "extras", "womens"];
+  const routeMeta = {
+    you: { href: "./you.html", label: "You" },
+    home: { href: "./index.html", label: "Home" },
+    moments: { href: "./moments.html", label: "Moments" },
+    gallery: { href: "./gallery.html", label: "Gallery" },
+    notes: { href: "./notes.html", label: "Notes" },
+    poetry: { href: "./poetry.html", label: "Poetry" },
+    extras: { href: "./extras.html", label: "Extras" },
+    womens: { href: "./womens-day/index.html", label: "Women’s Day" },
+  };
+
+  const key = currentKey();
+  const idx = routeOrder.indexOf(key);
+  const nextKey = routeOrder[(idx + 1) % routeOrder.length];
+  const target = routeMeta[nextKey];
+  if (!target) return;
 
   const prompt = document.createElement("div");
   prompt.className = "click-prompt";
@@ -590,22 +602,10 @@ function initClickPrompts() {
   fingerFab.setAttribute("aria-label", "Open suggested page");
   document.body.appendChild(fingerFab);
 
-  let idx = Math.floor(Math.random() * links.length);
-
-  const updateTarget = () => {
-    const target = links[idx];
-    if (!target) return;
-    text.textContent = `Next sparkle stop: ${target.label}`;
-    link.href = target.href;
-    fingerFab.href = target.href;
-    fingerFab.title = `Open ${target.label}`;
-    idx = (idx + 1) % links.length;
-  };
-
-  updateTarget();
-  if (!reduceMotion && links.length > 1) {
-    window.setInterval(updateTarget, 4200);
-  }
+  text.textContent = `Next sparkle stop: ${target.label}`;
+  link.href = target.href;
+  fingerFab.href = target.href;
+  fingerFab.title = `Open ${target.label}`;
 }
 
 initFloatingStickers();

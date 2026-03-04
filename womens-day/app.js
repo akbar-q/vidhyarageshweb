@@ -340,24 +340,18 @@ function initClickGuide() {
   const wrap = document.querySelector(".wrap");
   if (!nav || !wrap) return;
 
-  const currentPath = (window.location.pathname || "").replace(/\/+$/, "");
-  const links = Array.from(nav.querySelectorAll("a[href]"))
-    .map((a) => ({
-      href: a.getAttribute("href") || "",
-      label: (a.textContent || "").trim(),
-      abs: a.href,
-    }))
-    .filter((x) => x.href && !x.href.startsWith("#"))
-    .filter((x) => {
-      try {
-        const u = new URL(x.abs, window.location.href);
-        return u.pathname.replace(/\/+$/, "") !== currentPath;
-      } catch {
-        return false;
-      }
-    });
+  const currentPath = (window.location.pathname || "").toLowerCase();
 
-  if (!links.length) return;
+  let target = { href: "../you.html", label: "You" };
+  if (currentPath.endsWith("/womens-day/index.html") || currentPath.endsWith("/womens-day/")) {
+    target = { href: "./trailblazers.html", label: "Trailblazers" };
+  } else if (currentPath.endsWith("/womens-day/trailblazers.html")) {
+    target = { href: "./celebrate.html", label: "Celebrate" };
+  } else if (currentPath.endsWith("/womens-day/celebrate.html")) {
+    target = { href: "./wall.html", label: "Wall" };
+  } else if (currentPath.endsWith("/womens-day/wall.html")) {
+    target = { href: "../you.html", label: "You" };
+  }
 
   const prompt = document.createElement("div");
   prompt.className = "wd-click-prompt";
@@ -373,22 +367,10 @@ function initClickGuide() {
   fab.setAttribute("aria-label", "Open suggested page");
   document.body.appendChild(fab);
 
-  let idx = Math.floor(Math.random() * links.length);
-
-  const update = () => {
-    const target = links[idx];
-    if (!target) return;
-    text.textContent = `Next stop: ${target.label}`;
-    link.href = target.href;
-    fab.href = target.href;
-    fab.title = `Open ${target.label}`;
-    idx = (idx + 1) % links.length;
-  };
-
-  update();
-  if (!reduceMotion && links.length > 1) {
-    window.setInterval(update, 4200);
-  }
+  text.textContent = `Next stop: ${target.label}`;
+  link.href = target.href;
+  fab.href = target.href;
+  fab.title = `Open ${target.label}`;
 }
 
 document.addEventListener("DOMContentLoaded", () => {
