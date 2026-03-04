@@ -570,7 +570,7 @@ function initClickPrompts() {
   prompt.innerHTML = `
     <span class="click-prompt-finger" aria-hidden="true">👉</span>
     <span class="click-prompt-text"></span>
-    <a class="button secondary click-prompt-link" href="#">Click through</a>
+    <a class="button secondary click-prompt-link" href="#">NEXT PAGE ➜</a>
   `;
 
   const page = document.querySelector(".page");

@@ -343,7 +343,7 @@ function initClickGuide() {
 
   const prompt = document.createElement("div");
   prompt.className = "wd-click-prompt";
-  prompt.innerHTML = '<span class="wd-click-finger">👉</span><span data-wd-text></span><a class="btn alt" data-wd-link href="#">Click here</a>';
+  prompt.innerHTML = '<span class="wd-click-finger">👉</span><span data-wd-text></span><a class="btn alt" data-wd-link href="#">NEXT PAGE ➜</a>';
   wrap.insertBefore(prompt, wrap.querySelector("main"));
 
   const text = prompt.querySelector("[data-wd-text]");
