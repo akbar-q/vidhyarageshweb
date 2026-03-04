@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Women’s Day Love Wall 💌</title>
+  <meta name="description" content="Leave colorful Women’s Day notes on a glowing retro wall." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee+Tint&family=Monoton&family=Pacifico&family=Press+Start+2P&family=Rubik+Glitch&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body data-page="wall">
+  <div class="emoji-rain" aria-hidden="true"></div>
+  <div class="orb orb-a" aria-hidden="true"></div>
+  <div class="orb orb-b" aria-hidden="true"></div>
+
+  <div class="wrap">
+    <header class="topbar">
+      <a class="logo" href="./index.html">WOMEN 💖 POWER</a>
+      <nav>
+        <a href="./index.html">Home</a>
+        <a href="./trailblazers.html">Trailblazers</a>
+        <a href="./celebrate.html">Celebrate</a>
+        <a href="./wall.html" aria-current="page">Wall</a>
+        <a href="../index.html">Main Site</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero card pop-in">
+        <p class="eyebrow">Community Wall</p>
+        <h1>Drop a Women’s Day Note 💌</h1>
+        <p>Write something kind, grateful, or empowering — it appears instantly below.</p>
+      </section>
+
+      <section class="card wall-form tilt">
+        <label for="noteInput">Your message ✨</label>
+        <textarea id="noteInput" maxlength="180" placeholder="Example: To every woman balancing 100 things — your strength is art 💖"></textarea>
+        <div class="cta-row">
+          <button class="btn" type="button" data-save-note>Pin Note 📌</button>
+          <button class="btn alt" type="button" data-clear-notes>Clear Wall 🧹</button>
+        </div>
+      </section>
+
+      <section class="notes-grid" data-notes-grid></section>
+    </main>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>
