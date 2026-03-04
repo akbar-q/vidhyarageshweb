@@ -237,6 +237,49 @@ h2 {
   animation: blink 1.7s ease-in-out infinite;
 }
 
+.wd-gallery-scroll {
+  margin-top: 14px;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(240px, 320px);
+  gap: 12px;
+  overflow-x: auto;
+  padding: 8px 4px 12px;
+  scroll-snap-type: x mandatory;
+}
+
+.wd-ig-card {
+  scroll-snap-align: start;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 2px dashed rgba(32, 20, 56, 0.2);
+  box-shadow: var(--glow);
+  overflow: hidden;
+}
+
+.wd-ig-media {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(140deg, rgba(255, 105, 180, 0.22), rgba(82, 229, 255, 0.22));
+}
+
+.wd-ig-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.wd-ig-caption {
+  padding: 10px 12px;
+  font-size: 0.96rem;
+}
+
+.wd-missing {
+  display: grid;
+  place-items: center;
+  min-height: 180px;
+}
+
 @keyframes blink {
   0%, 100% { opacity: 0.2; transform: scale(0.9); }
   50% { opacity: 1; transform: scale(1.15); }

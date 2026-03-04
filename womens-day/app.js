@@ -173,6 +173,89 @@ function initPageEnter() {
   );
 }
 
+function initWomenGallery() {
+  const feed = document.querySelector("[data-wd-gallery]");
+  if (!feed) return;
+
+  function prettifyTitle(input) {
+    if (!input) return "Women’s Day Memory";
+    let s = String(input);
+    s = s.replace(/\.[^./\\]+$/g, "");
+    s = s.replace(/[_-]+/g, " ");
+    s = s.replace(/([a-z])([A-Z])/g, "$1 $2");
+    return s.replace(/\s+/g, " ").trim();
+  }
+
+  function photoUrl(fileName) {
+    return `./photos/${encodeURIComponent(fileName)}`;
+  }
+
+  function makeCard(item) {
+    const title = prettifyTitle(item.title || item.file);
+    const src = photoUrl(item.file);
+
+    const card = document.createElement("article");
+    card.className = "wd-ig-card tilt";
+
+    const media = document.createElement("div");
+    media.className = "wd-ig-media";
+
+    const img = document.createElement("img");
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.alt = title;
+    img.src = src;
+    media.appendChild(img);
+
+    const caption = document.createElement("div");
+    caption.className = "wd-ig-caption";
+    caption.textContent = title;
+
+    card.appendChild(media);
+    card.appendChild(caption);
+    return card;
+  }
+
+  async function loadManifest() {
+    const res = await fetch(`./photos/photos.json?v=${Date.now()}`);
+    if (!res.ok) throw new Error("manifest fetch failed");
+    const data = await res.json();
+    if (!Array.isArray(data)) return [];
+    return data
+      .filter((x) => x && typeof x.file === "string" && x.file.trim())
+      .map((x) => ({ file: x.file.trim(), title: typeof x.title === "string" ? x.title : "" }));
+  }
+
+  (async () => {
+    try {
+      const items = await loadManifest();
+      feed.innerHTML = "";
+
+      if (!items.length) {
+        const empty = document.createElement("article");
+        empty.className = "wd-ig-card wd-missing";
+        const txt = document.createElement("div");
+        txt.className = "wd-ig-caption";
+        txt.textContent = "No photos yet — add files to womens-day/photos and update photos.json.";
+        empty.appendChild(txt);
+        feed.appendChild(empty);
+        return;
+      }
+
+      items.forEach((item) => feed.appendChild(makeCard(item)));
+    } catch {
+      feed.innerHTML = "";
+      const fail = document.createElement("article");
+      fail.className = "wd-ig-card wd-missing";
+      const txt = document.createElement("div");
+      txt.className = "wd-ig-caption";
+      txt.textContent = "Couldn’t load womens-day/photos/photos.json yet.";
+      fail.appendChild(txt);
+      feed.appendChild(fail);
+    }
+  })();
+}
+
 function initClickGuide() {
   const nav = document.querySelector(".topbar nav");
   const wrap = document.querySelector(".wrap");
@@ -238,6 +321,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindTiltCards();
   initTyping();
   initWall();
+  initWomenGallery();
   initClickGuide();
 
   window.addEventListener("pointerdown", (event) => {
