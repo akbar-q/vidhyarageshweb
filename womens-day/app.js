@@ -190,9 +190,67 @@ function initWomenGallery() {
     return `./photos/${encodeURIComponent(fileName)}`;
   }
 
+  function ensureLightbox() {
+    let lb = document.querySelector("[data-wd-lightbox]");
+    if (lb) return lb;
+
+    lb = document.createElement("div");
+    lb.className = "wd-lightbox";
+    lb.setAttribute("data-wd-lightbox", "");
+    lb.hidden = true;
+
+    const card = document.createElement("div");
+    card.className = "wd-lightbox-card";
+
+    const top = document.createElement("div");
+    top.className = "wd-lightbox-top";
+
+    const title = document.createElement("h3");
+    title.className = "wd-lightbox-title";
+
+    const close = document.createElement("button");
+    close.type = "button";
+    close.className = "wd-lightbox-close";
+    close.textContent = "Close";
+
+    const img = document.createElement("img");
+    img.className = "wd-lightbox-img";
+    img.alt = "";
+
+    const dismiss = () => {
+      lb.hidden = true;
+      img.src = "";
+    };
+
+    close.addEventListener("click", dismiss);
+    lb.addEventListener("click", (e) => {
+      if (e.target === lb) dismiss();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !lb.hidden) dismiss();
+    });
+
+    top.appendChild(title);
+    top.appendChild(close);
+    card.appendChild(top);
+    card.appendChild(img);
+    lb.appendChild(card);
+    document.body.appendChild(lb);
+
+    lb._set = ({ src, titleText }) => {
+      title.textContent = titleText || "";
+      img.src = src;
+      img.alt = titleText || "Photo";
+      lb.hidden = false;
+    };
+
+    return lb;
+  }
+
   function makeCard(item) {
     const title = prettifyTitle(item.title || item.file);
     const src = photoUrl(item.file);
+    const lb = ensureLightbox();
 
     const card = document.createElement("article");
     card.className = "wd-ig-card tilt";
@@ -205,6 +263,9 @@ function initWomenGallery() {
     img.decoding = "async";
     img.alt = title;
     img.src = src;
+    img.addEventListener("click", () => {
+      lb._set({ src, titleText: title });
+    });
     media.appendChild(img);
 
     const caption = document.createElement("div");

@@ -239,9 +239,7 @@ h2 {
 
 .wd-gallery-scroll {
   margin-top: 14px;
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: minmax(240px, 320px);
+  display: flex;
   gap: 12px;
   overflow-x: auto;
   padding: 8px 4px 12px;
@@ -249,6 +247,9 @@ h2 {
 }
 
 .wd-ig-card {
+  flex: 0 0 auto;
+  width: auto;
+  max-width: min(92vw, 780px);
   scroll-snap-align: start;
   border-radius: 18px;
   background: rgba(255, 255, 255, 0.88);
@@ -258,15 +259,18 @@ h2 {
 }
 
 .wd-ig-media {
-  aspect-ratio: 4 / 5;
+  width: auto;
+  height: auto;
   background: linear-gradient(140deg, rgba(255, 105, 180, 0.22), rgba(82, 229, 255, 0.22));
 }
 
 .wd-ig-media img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  width: auto;
+  max-width: min(92vw, 760px);
+  height: clamp(220px, 42vh, 420px);
+  object-fit: contain;
   display: block;
+  cursor: zoom-in;
 }
 
 .wd-ig-caption {
@@ -278,6 +282,60 @@ h2 {
   display: grid;
   place-items: center;
   min-height: 180px;
+}
+
+.wd-lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(21, 8, 41, 0.82);
+  display: grid;
+  place-items: center;
+  padding: 16px;
+  z-index: 30;
+}
+
+.wd-lightbox[hidden] {
+  display: none;
+}
+
+.wd-lightbox-card {
+  width: min(100%, 1100px);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 2px dashed rgba(32, 20, 56, 0.22);
+  overflow: hidden;
+  box-shadow: var(--glow);
+}
+
+.wd-lightbox-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+}
+
+.wd-lightbox-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.wd-lightbox-close {
+  border: 0;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: linear-gradient(120deg, #ff6e9d, #ffd94f);
+  font-family: "Press Start 2P", monospace;
+  font-size: 0.55rem;
+  cursor: pointer;
+}
+
+.wd-lightbox-img {
+  width: 100%;
+  max-height: 84vh;
+  object-fit: contain;
+  display: block;
+  background: #fff;
 }
 
 @keyframes blink {

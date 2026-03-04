@@ -357,7 +357,7 @@ button:focus-visible,
 
 
 .ig-feed {
-  width: min(100%, 740px);
+  width: min(100%, 1040px);
   margin: 0 auto;
   display: grid;
   gap: 18px;
