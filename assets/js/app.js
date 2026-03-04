@@ -542,6 +542,72 @@ function initConfetti() {
   });
 }
 
+function initClickPrompts() {
+  const nav = document.querySelector("header nav");
+  if (!nav) return;
+
+  const currentPath = (window.location.pathname || "").replace(/\/+$/, "");
+  const links = Array.from(nav.querySelectorAll("a[href]"))
+    .map((a) => {
+      const href = a.getAttribute("href") || "";
+      const label = (a.textContent || "").trim();
+      return { a, href, label };
+    })
+    .filter((item) => item.href && !item.href.startsWith("#") && !item.href.startsWith("mailto:") && !item.href.startsWith("tel:"))
+    .filter((item) => {
+      try {
+        const u = new URL(item.a.href, window.location.href);
+        return u.pathname.replace(/\/+$/, "") !== currentPath;
+      } catch {
+        return false;
+      }
+    });
+
+  if (!links.length) return;
+
+  const prompt = document.createElement("div");
+  prompt.className = "click-prompt";
+  prompt.innerHTML = `
+    <span class="click-prompt-finger" aria-hidden="true">👉</span>
+    <span class="click-prompt-text"></span>
+    <a class="button secondary click-prompt-link" href="#">Click through</a>
+  `;
+
+  const page = document.querySelector(".page");
+  const header = document.querySelector("header");
+  if (page && header && header.parentElement === page) {
+    page.insertBefore(prompt, header.nextSibling);
+  } else {
+    document.body.appendChild(prompt);
+  }
+
+  const text = prompt.querySelector(".click-prompt-text");
+  const link = prompt.querySelector(".click-prompt-link");
+
+  const fingerFab = document.createElement("a");
+  fingerFab.className = "click-nudge";
+  fingerFab.textContent = "☝️";
+  fingerFab.setAttribute("aria-label", "Open suggested page");
+  document.body.appendChild(fingerFab);
+
+  let idx = Math.floor(Math.random() * links.length);
+
+  const updateTarget = () => {
+    const target = links[idx];
+    if (!target) return;
+    text.textContent = `Next sparkle stop: ${target.label}`;
+    link.href = target.href;
+    fingerFab.href = target.href;
+    fingerFab.title = `Open ${target.label}`;
+    idx = (idx + 1) % links.length;
+  };
+
+  updateTarget();
+  if (!reduceMotion && links.length > 1) {
+    window.setInterval(updateTarget, 4200);
+  }
+}
+
 initFloatingStickers();
 initPageTransitions();
 initSparkles();
@@ -550,3 +616,4 @@ initReveal();
 initGallery();
 initConfetti();
 initWomenInScienceDayPopup();
+initClickPrompts();

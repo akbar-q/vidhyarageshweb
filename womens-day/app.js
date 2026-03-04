@@ -173,6 +173,62 @@ function initPageEnter() {
   );
 }
 
+function initClickGuide() {
+  const nav = document.querySelector(".topbar nav");
+  const wrap = document.querySelector(".wrap");
+  if (!nav || !wrap) return;
+
+  const currentPath = (window.location.pathname || "").replace(/\/+$/, "");
+  const links = Array.from(nav.querySelectorAll("a[href]"))
+    .map((a) => ({
+      href: a.getAttribute("href") || "",
+      label: (a.textContent || "").trim(),
+      abs: a.href,
+    }))
+    .filter((x) => x.href && !x.href.startsWith("#"))
+    .filter((x) => {
+      try {
+        const u = new URL(x.abs, window.location.href);
+        return u.pathname.replace(/\/+$/, "") !== currentPath;
+      } catch {
+        return false;
+      }
+    });
+
+  if (!links.length) return;
+
+  const prompt = document.createElement("div");
+  prompt.className = "wd-click-prompt";
+  prompt.innerHTML = '<span class="wd-click-finger">👉</span><span data-wd-text></span><a class="btn alt" data-wd-link href="#">Click here</a>';
+  wrap.insertBefore(prompt, wrap.querySelector("main"));
+
+  const text = prompt.querySelector("[data-wd-text]");
+  const link = prompt.querySelector("[data-wd-link]");
+
+  const fab = document.createElement("a");
+  fab.className = "wd-fab";
+  fab.textContent = "☝️";
+  fab.setAttribute("aria-label", "Open suggested page");
+  document.body.appendChild(fab);
+
+  let idx = Math.floor(Math.random() * links.length);
+
+  const update = () => {
+    const target = links[idx];
+    if (!target) return;
+    text.textContent = `Next stop: ${target.label}`;
+    link.href = target.href;
+    fab.href = target.href;
+    fab.title = `Open ${target.label}`;
+    idx = (idx + 1) % links.length;
+  };
+
+  update();
+  if (!reduceMotion && links.length > 1) {
+    window.setInterval(update, 4200);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initPageEnter();
   ambientRain();
@@ -182,6 +238,7 @@ document.addEventListener("DOMContentLoaded", () => {
   bindTiltCards();
   initTyping();
   initWall();
+  initClickGuide();
 
   window.addEventListener("pointerdown", (event) => {
     if (reduceMotion) return;
