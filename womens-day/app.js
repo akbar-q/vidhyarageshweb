@@ -350,8 +350,6 @@ function initClickGuide() {
   } else if (currentPath.endsWith("/womens-day/celebrate.html")) {
     target = { href: "./wall.html", label: "Wall" };
   } else if (currentPath.endsWith("/womens-day/wall.html")) {
-    target = { href: "../finality-aq.html", label: "Finality" };
-  } else if (currentPath.endsWith("/finality-aq.html")) {
     target = { href: "../you.html", label: "You" };
   }
 

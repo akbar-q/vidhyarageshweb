@@ -550,6 +550,7 @@ function initClickPrompts() {
 
   function currentKey() {
     if (currentPath.endsWith("/you.html")) return "you";
+    if (currentPath.endsWith("/finality-aq.html")) return "finality";
     if (currentPath.endsWith("/moments.html")) return "moments";
     if (currentPath.endsWith("/gallery.html")) return "gallery";
     if (currentPath.endsWith("/notes.html")) return "notes";
@@ -559,9 +560,10 @@ function initClickPrompts() {
     return "home";
   }
 
-  const routeOrder = ["you", "home", "moments", "gallery", "notes", "poetry", "extras", "womens"];
+  const routeOrder = ["you", "finality", "home", "moments", "gallery", "notes", "poetry", "extras", "womens"];
   const routeMeta = {
     you: { href: "./you.html", label: "You" },
+    finality: { href: "./finality-aq.html", label: "Finality" },
     home: { href: "./index.html", label: "Home" },
     moments: { href: "./moments.html", label: "Moments" },
     gallery: { href: "./gallery.html", label: "Gallery" },
