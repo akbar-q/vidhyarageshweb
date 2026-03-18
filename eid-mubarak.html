@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Eid Mubarak | Golden Night Experience</title>
-  <meta name="description" content="An animation-rich, gold-themed Eid Mubarak celebration page." />
+  <title>Eid Mubarak | Moonlit Celebration</title>
+  <meta name="description" content="An animation-rich Eid Mubarak celebration page with moonlit vibes and interactive moments." />
   <meta name="theme-color" content="#100a04" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -552,20 +552,10 @@
       opacity: 0.9;
     }
 
-    .wish-panel {
-      border: 1px solid rgba(255, 230, 160, 0.3);
-      border-radius: 14px;
-      padding: 12px;
-      background: rgba(255, 221, 141, 0.05);
-      min-height: 170px;
-      display: grid;
-      gap: 10px;
-      align-content: start;
-    }
-
     .wish-lanterns {
       position: relative;
       height: 86px;
+      margin-top: 10px;
       border-radius: 12px;
       background: radial-gradient(circle at 20% 25%, rgba(255, 224, 150, 0.22), transparent 42%), #130c04;
       border: 1px solid rgba(255, 230, 170, 0.24);
@@ -1111,7 +1101,7 @@
     <header class="topbar">
       <div class="brand">
         <span class="brand-mark">☪</span>
-        <span>Golden Eid Night</span>
+        <span>Eid Night Sky</span>
       </div>
       <nav class="nav" aria-label="Primary navigation">
         <a href="./index.html">Home</a>
@@ -1125,9 +1115,9 @@
     <section class="hero">
       <article class="panel hero-main flash" id="heroPanel">
         <span class="tagline">Eid Night Observatory</span>
-        <h1><span class="shine">Eid Mubarak</span><br/>May your joy compound in gold.</h1>
+        <h1><span class="shine">Eid Mubarak</span><br/>May your home glow with peace and wonder.</h1>
         <p>
-          A golden Eid night with twinkling stars, shooting lights, flowing lunar phases,
+          A moonlit Eid night with twinkling stars, shooting lights, flowing lunar phases,
           heartfelt duas, and joyful interactions for everyone to enjoy on desktop and mobile.
         </p>
         <div class="hero-actions">
@@ -1214,28 +1204,24 @@
       <article class="card wide" data-tilt>
         <h3>Live Quote Stream</h3>
         <p>Beautiful Eid lines appear one by one and refresh through the night.</p>
-        <div class="grid-two">
-          <div>
-            <p class="quote" id="quoteText"></p>
-            <div class="hero-actions" style="margin-top:8px;">
-              <button class="btn alt" id="nextQuote" type="button">Next Line</button>
-            </div>
-          </div>
-          <div>
-            <div class="wish-panel">
-              <div class="wish-lanterns" aria-hidden="true">
-                <span class="lantern l1"></span>
-                <span class="lantern l2"></span>
-                <span class="lantern l3"></span>
-              </div>
-              <p class="wish-text">Eid Mubarak. May your home be filled with warmth, your table with blessing, and your heart with lasting peace.</p>
-            </div>
-          </div>
+        <p class="quote" id="quoteText"></p>
+        <div class="hero-actions" style="margin-top:8px;">
+          <button class="btn alt" id="nextQuote" type="button">Next Line</button>
+        </div>
+      </article>
+
+      <article class="card wide" data-tilt>
+        <h3>Eid Wish</h3>
+        <p>May your home be filled with warmth, your table with blessing, and your heart with lasting peace.</p>
+        <div class="wish-lanterns" aria-hidden="true">
+          <span class="lantern l1"></span>
+          <span class="lantern l2"></span>
+          <span class="lantern l3"></span>
         </div>
       </article>
     </section>
 
-    <p class="footer">Crafted for Eid joy with unapologetic gold maximalism.</p>
+    <p class="footer">Designed by Akbar Q</p>
   </main>
 
   <div class="easter" id="easter">Secret: reach 99 taps</div>
@@ -1624,7 +1610,7 @@
         "May your Eid be crowned with", "May your home overflow with", "May this Eid wrap you in", "May every step after Eid carry"
       ];
       const middles = [
-        "barakah, laughter, and late-night chai joy", "calm hearts, bright rizq, and sincere smiles", "forgiveness, family warmth, and brave dreams", "gentle sabr, golden moments, and answered duas"
+        "barakah, laughter, and late-night chai joy", "calm hearts, bright rizq, and sincere smiles", "forgiveness, family warmth, and brave dreams", "gentle sabr, soft evenings, and answered duas"
       ];
       const ends = [
         "Ameen.", "Today and always.", "With grace and sparkle.", "And then some extra joy on top."
@@ -1642,7 +1628,7 @@
       const quotes = [
         "Eid is proof that joy can be both sacred and loud.",
         "Collect moments, share food, forgive quickly.",
-        "Tonight's moon writes poetry in gold.",
+        "Tonight's moon writes poetry across the sky.",
         "May your duas return with interest.",
         "Elegance is saying Eid Mubarak like you mean it."
       ];
