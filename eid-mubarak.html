@@ -73,7 +73,7 @@
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
+      z-index: 2;
     }
 
     .page {
@@ -185,6 +185,28 @@
       animation: breathing 8s ease-in-out infinite;
     }
 
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 16% 18%, rgba(255, 236, 190, 0.65) 0 1px, transparent 2px),
+        radial-gradient(circle at 84% 24%, rgba(255, 224, 150, 0.72) 0 1px, transparent 2px),
+        radial-gradient(circle at 62% 72%, rgba(255, 232, 178, 0.66) 0 1px, transparent 2px),
+        radial-gradient(circle at 36% 64%, rgba(255, 214, 124, 0.62) 0 1px, transparent 2px),
+        radial-gradient(circle at 72% 54%, rgba(255, 228, 168, 0.6) 0 1px, transparent 2px);
+      animation: star-blink 2.8s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: -1;
+      opacity: 0.7;
+    }
+
+    @keyframes star-blink {
+      0% { opacity: 0.34; }
+      45% { opacity: 0.86; }
+      100% { opacity: 0.52; }
+    }
+
     @keyframes breathing {
       0%, 100% { transform: scale(1); }
       50% { transform: scale(1.06); }
@@ -277,6 +299,7 @@
       padding: 18px;
       display: grid;
       gap: 12px;
+      grid-template-rows: auto auto 1fr;
       align-content: start;
     }
 
@@ -306,6 +329,18 @@
       margin-inline: auto;
     }
 
+    .moon::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      left: 26%;
+      top: 30%;
+      background: radial-gradient(circle at 30% 30%, rgba(255, 242, 214, 0.55), rgba(138, 99, 32, 0.38));
+      opacity: 0.75;
+    }
+
     .moon-shadow {
       position: absolute;
       inset: -2%;
@@ -313,6 +348,16 @@
       background: #1b1308;
       transform: translateX(15%);
       transition: transform 360ms ease;
+    }
+
+    .moon.is-spinning {
+      animation: moon-spin 900ms cubic-bezier(0.2, 0.7, 0.2, 1);
+    }
+
+    @keyframes moon-spin {
+      0% { transform: rotate(0deg) scale(1); box-shadow: 0 0 22px rgba(236, 189, 95, 0.36); }
+      50% { transform: rotate(180deg) scale(1.1); box-shadow: 0 0 38px rgba(255, 224, 148, 0.64); }
+      100% { transform: rotate(360deg) scale(1); box-shadow: 0 0 22px rgba(236, 189, 95, 0.36); }
     }
 
     .moon-label {
@@ -364,7 +409,10 @@
       border: 1px solid var(--line);
       padding: 12px;
       background: linear-gradient(145deg, rgba(37, 25, 9, 0.85), rgba(18, 12, 5, 0.85));
-      min-height: 170px;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
     }
 
     .solar-title {
@@ -377,7 +425,8 @@
 
     .cosmos {
       position: relative;
-      height: 124px;
+      flex: 1;
+      min-height: 220px;
       border-radius: 14px;
       overflow: hidden;
       background: radial-gradient(circle at 24% 18%, rgba(255, 222, 141, 0.17), transparent 40%),
@@ -441,8 +490,8 @@
     }
 
     @keyframes orbiting {
-      from { transform: rotate(0deg) translateX(27px); }
-      to { transform: rotate(360deg) translateX(27px); }
+      from { transform: rotate(0deg) translateX(var(--radius)); }
+      to { transform: rotate(360deg) translateX(var(--radius)); }
     }
 
     .planet-2 { --radius: 42px; }
@@ -458,6 +507,192 @@
       font-size: 0.74rem;
       color: #f3dca8;
       opacity: 0.9;
+    }
+
+    .cosmos-shooting {
+      position: absolute;
+      width: 90px;
+      height: 2px;
+      background: linear-gradient(90deg, rgba(255, 236, 182, 0), rgba(255, 236, 182, 0.95));
+      transform: rotate(-24deg);
+      filter: drop-shadow(0 0 7px rgba(255, 220, 136, 0.7));
+      animation: cosmos-shoot 4.8s linear infinite;
+    }
+
+    .cosmos-shoot.one {
+      top: 16%;
+      left: -26%;
+      animation-delay: 0.2s;
+    }
+
+    .cosmos-shoot.two {
+      top: 62%;
+      left: -34%;
+      animation-delay: 2.6s;
+    }
+
+    @keyframes cosmos-shoot {
+      0% { transform: translateX(0) translateY(0) rotate(-24deg); opacity: 0; }
+      8% { opacity: 1; }
+      35% { opacity: 0.95; }
+      100% { transform: translateX(480px) translateY(160px) rotate(-24deg); opacity: 0; }
+    }
+
+    .solar-tip {
+      margin: 8px 0 0;
+      font-size: 0.74rem;
+      color: #f3dca8;
+      opacity: 0.9;
+    }
+
+    .orbital-desk {
+      border: 1px solid rgba(255, 230, 160, 0.3);
+      border-radius: 14px;
+      padding: 10px;
+      background: rgba(255, 221, 141, 0.05);
+    }
+
+    .orbital-dial {
+      position: relative;
+      height: 148px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 230, 170, 0.24);
+      overflow: hidden;
+      background: radial-gradient(circle at 26% 24%, rgba(255, 224, 140, 0.15), transparent 36%), #130c04;
+    }
+
+    .dial-ring {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 229, 162, 0.36);
+      transform: translate(-50%, -50%);
+      animation: ring-rotate 11s linear infinite;
+    }
+
+    .dial-ring.r1 { width: 52px; height: 52px; }
+    .dial-ring.r2 { width: 86px; height: 86px; animation-direction: reverse; }
+    .dial-ring.r3 { width: 120px; height: 120px; }
+
+    .dial-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle at 32% 32%, #fff0c1, #cc973c 68%, #8f651f);
+      box-shadow: 0 0 14px rgba(255, 214, 121, 0.65);
+    }
+
+    .dial-dot {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transform: rotate(var(--angle)) translateX(var(--radius));
+      transform-origin: 0 0;
+      background: #f6ddb0;
+      animation: dot-pulse 1.6s ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    @keyframes ring-rotate {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @keyframes dot-pulse {
+      0%, 100% { opacity: 0.4; transform: rotate(var(--angle)) translateX(var(--radius)) scale(0.8); }
+      50% { opacity: 1; transform: rotate(var(--angle)) translateX(var(--radius)) scale(1.2); }
+    }
+
+    .orbital-meta {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--ink-muted);
+      font-size: 0.78rem;
+    }
+
+    .orbital-btn {
+      border: 1px solid rgba(255, 229, 160, 0.38);
+      background: rgba(255, 229, 160, 0.08);
+      color: #f8e8be;
+      border-radius: 10px;
+      padding: 6px 10px;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .solar-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      display: grid;
+      place-items: center;
+      background: rgba(7, 4, 1, 0.84);
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition);
+    }
+
+    .solar-modal.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .solar-modal-card {
+      width: min(980px, 96vw);
+      min-height: min(78vh, 680px);
+      border-radius: 18px;
+      border: 1px solid rgba(255, 226, 150, 0.42);
+      background: linear-gradient(145deg, rgba(24, 16, 7, 0.95), rgba(14, 9, 4, 0.95));
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.55);
+      padding: 14px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+    }
+
+    .solar-modal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #f4dca1;
+    }
+
+    .solar-modal-sky {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 229, 162, 0.26);
+      background: radial-gradient(circle at 20% 22%, rgba(255, 220, 140, 0.16), transparent 36%), #110a03;
+    }
+
+    .solar-modal .cosmos {
+      min-height: 100%;
+      height: 100%;
+      border: 0;
+      background: transparent;
+    }
+
+    .close-modal {
+      border: 1px solid rgba(255, 229, 170, 0.4);
+      border-radius: 10px;
+      background: rgba(255, 229, 170, 0.08);
+      color: #f8e8be;
+      padding: 7px 11px;
+      cursor: pointer;
+      font: inherit;
     }
 
     .sections {
@@ -653,14 +888,31 @@
     .coin {
       position: absolute;
       top: -30px;
-      width: 16px;
-      height: 16px;
+      width: 18px;
+      height: 18px;
       border-radius: 50%;
       pointer-events: none;
       background: radial-gradient(circle at 32% 28%, #fff3cf, #c59134 58%, #7e5a1f);
       border: 1px solid rgba(255, 236, 183, 0.46);
       animation: coin-fall linear forwards;
       box-shadow: 0 0 16px rgba(230, 180, 67, 0.55);
+    }
+
+    .burst-ring {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 224, 145, 0.86);
+      box-shadow: 0 0 20px rgba(255, 214, 122, 0.6);
+      pointer-events: none;
+      z-index: 9;
+      animation: burst-ring 620ms ease forwards;
+    }
+
+    @keyframes burst-ring {
+      from { transform: translate(-50%, -50%) scale(0.4); opacity: 1; }
+      to { transform: translate(-50%, -50%) scale(7.6); opacity: 0; }
     }
 
     @keyframes coin-fall {
@@ -688,6 +940,27 @@
       0% { box-shadow: 0 0 0 rgba(255, 226, 147, 0); }
       40% { box-shadow: 0 0 40px rgba(255, 226, 147, 0.36); }
       100% { box-shadow: 0 0 0 rgba(255, 226, 147, 0); }
+    }
+
+    body.night-glow {
+      background: radial-gradient(circle at 18% 18%, rgba(255, 218, 136, 0.35), transparent 42%),
+        radial-gradient(circle at 82% 16%, rgba(215, 165, 69, 0.28), transparent 46%),
+        linear-gradient(145deg, #070401, #120a03 54%, #1a1106);
+    }
+
+    body.night-glow::before {
+      background-image: linear-gradient(130deg, rgba(255, 230, 170, 0.12) 8%, transparent 40%, rgba(255, 210, 120, 0.13) 68%, transparent 90%);
+    }
+
+    body.night-glow .panel,
+    body.night-glow .topbar {
+      border-color: rgba(255, 228, 150, 0.6);
+      box-shadow: 0 0 0 1px rgba(255, 228, 150, 0.3), 0 24px 70px rgba(0, 0, 0, 0.48);
+    }
+
+    body.night-glow .shine {
+      animation-duration: 2.8s;
+      filter: drop-shadow(0 0 10px rgba(255, 225, 145, 0.65));
     }
 
     @media (max-width: 1040px) {
@@ -730,9 +1003,15 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation: none !important;
-        transition: none !important;
+      .coin,
+      .cosmos-shooting,
+      .planet,
+      .dial-ring,
+      .hero-main::before,
+      .hero-main::after,
+      body::before,
+      .shine {
+        animation-duration: 12s !important;
       }
     }
   </style>
@@ -790,7 +1069,7 @@
           <div class="stat"><strong id="burstCount">0</strong><span>Bursts Fired</span></div>
           <div class="stat"><strong id="tapCount">0</strong><span>Interactions</span></div>
         </div>
-        <section class="solar-system" aria-label="Mini solar system visual">
+        <section class="solar-system" id="solarLaunch" aria-label="Mini solar system visual" role="button" tabindex="0">
           <p class="solar-title">Mini Solar System</p>
           <div class="cosmos" aria-hidden="true">
             <span class="orbit orbit-1"></span>
@@ -800,7 +1079,10 @@
             <span class="planet planet-1"></span>
             <span class="planet planet-2"></span>
             <span class="planet planet-3"></span>
+            <span class="cosmos-shooting one"></span>
+            <span class="cosmos-shooting two"></span>
           </div>
+          <p class="solar-tip">Tap to open full animated solar system</p>
         </section>
       </aside>
     </section>
@@ -853,12 +1135,22 @@
             </div>
           </div>
           <div>
-            <p class="dua-text">
-              Try these interactions:
-              drag the moon slider,
-              burst coins,
-              and keep tapping tasbih to unlock the hidden finale at 99.
-            </p>
+            <div class="orbital-desk">
+              <div class="orbital-dial" id="orbitalDial" aria-hidden="true">
+                <span class="dial-ring r1"></span>
+                <span class="dial-ring r2"></span>
+                <span class="dial-ring r3"></span>
+                <span class="dial-core"></span>
+                <span class="dial-dot" style="--angle: 20deg; --radius: 24px; --delay: 0s;"></span>
+                <span class="dial-dot" style="--angle: 110deg; --radius: 42px; --delay: 0.3s;"></span>
+                <span class="dial-dot" style="--angle: 220deg; --radius: 58px; --delay: 0.6s;"></span>
+                <span class="dial-dot" style="--angle: 290deg; --radius: 58px; --delay: 0.9s;"></span>
+              </div>
+              <div class="orbital-meta">
+                <span id="orbitalStatus">Orbital pulse active</span>
+                <button class="orbital-btn" id="orbitalBoost" type="button">Boost</button>
+              </div>
+            </div>
           </div>
         </div>
       </article>
@@ -868,6 +1160,28 @@
   </main>
 
   <div class="easter" id="easter">Secret: reach 99 taps</div>
+
+  <div class="solar-modal" id="solarModal" aria-hidden="true">
+    <div class="solar-modal-card" role="dialog" aria-modal="true" aria-label="Full animated solar system">
+      <div class="solar-modal-top">
+        <strong>Full Solar System View</strong>
+        <button class="close-modal" id="closeSolarModal" type="button">Close</button>
+      </div>
+      <div class="solar-modal-sky">
+        <div class="cosmos" aria-hidden="true">
+          <span class="orbit orbit-1"></span>
+          <span class="orbit orbit-2"></span>
+          <span class="orbit orbit-3"></span>
+          <span class="sun"></span>
+          <span class="planet planet-1"></span>
+          <span class="planet planet-2"></span>
+          <span class="planet planet-3"></span>
+          <span class="cosmos-shooting one"></span>
+          <span class="cosmos-shooting two"></span>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <script>
     const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -883,6 +1197,9 @@
       phaseSlider: document.getElementById("phaseSlider"),
       moonPhase: document.getElementById("moonPhase"),
       moonMode: document.getElementById("moonMode"),
+      solarLaunch: document.getElementById("solarLaunch"),
+      solarModal: document.getElementById("solarModal"),
+      closeSolarModal: document.getElementById("closeSolarModal"),
       starCount: document.getElementById("starCount"),
       burstCount: document.getElementById("burstCount"),
       tapCount: document.getElementById("tapCount"),
@@ -897,7 +1214,10 @@
       quoteText: document.getElementById("quoteText"),
       nextQuote: document.getElementById("nextQuote"),
       easter: document.getElementById("easter"),
-      heroPanel: document.getElementById("heroPanel")
+      heroPanel: document.getElementById("heroPanel"),
+      orbitalDial: document.getElementById("orbitalDial"),
+      orbitalStatus: document.getElementById("orbitalStatus"),
+      orbitalBoost: document.getElementById("orbitalBoost")
     };
 
     let interactions = 0;
@@ -1016,10 +1336,10 @@
           const alpha = 1 - m.life / m.maxLife;
           ctx.beginPath();
           ctx.moveTo(m.x, m.y);
-          ctx.lineTo(m.x - m.vx * 1.9, m.y - m.vy * 1.9);
-          ctx.lineTo(m.x - m.vx * 1.9 - m.len * 0.6, m.y - m.vy * 1.9 - m.len * 0.2);
+          ctx.lineTo(m.x - m.vx * 2.6, m.y - m.vy * 2.6);
+          ctx.lineTo(m.x - m.vx * 2.6 - m.len * 0.75, m.y - m.vy * 2.6 - m.len * 0.3);
           ctx.strokeStyle = `rgba(255, 224, 148, ${Math.max(0, alpha)})`;
-          ctx.lineWidth = 2;
+          ctx.lineWidth = 2.4;
           ctx.lineCap = "round";
           ctx.stroke();
         });
@@ -1057,6 +1377,13 @@
       refs.heroPanel.classList.remove("pulse");
       void refs.heroPanel.offsetWidth;
       refs.heroPanel.classList.add("pulse");
+
+      const ring = document.createElement("span");
+      ring.className = "burst-ring";
+      ring.style.left = "50%";
+      ring.style.top = "52%";
+      document.body.appendChild(ring);
+      setTimeout(() => ring.remove(), 700);
     }
 
     function initButtons() {
@@ -1068,23 +1395,90 @@
       refs.nightToggle.addEventListener("click", () => {
         const on = refs.nightToggle.getAttribute("aria-pressed") === "true";
         refs.nightToggle.setAttribute("aria-pressed", String(!on));
+        document.body.classList.toggle("night-glow", !on);
         document.documentElement.style.setProperty("--bg-0", on ? "#0f0a04" : "#0a0603");
         document.documentElement.style.setProperty("--bg-1", on ? "#1a1207" : "#120b04");
         document.documentElement.style.setProperty("--bg-2", on ? "#251a0b" : "#1a1208");
+        refs.nightToggle.textContent = on ? "Toggle Night Glow" : "Night Glow On";
+        emitCoins(on ? 8 : 18);
         addInteraction();
       });
 
       refs.spinMoon.addEventListener("click", () => {
-        refs.moonVisual.animate(
+        refs.moonVisual.classList.remove("is-spinning");
+        void refs.moonVisual.offsetWidth;
+        refs.moonVisual.classList.add("is-spinning");
+
+        const current = Number(refs.phaseSlider.value);
+        const jumped = (current + 14) % 100;
+        refs.phaseSlider.value = jumped.toFixed(2);
+        refs.moonShadow.style.transform = `translateX(${Math.round((jumped / 100 - 0.5) * 200)}%)`;
+
+        if (typeof refs.moonVisual.animate === "function") {
+          refs.moonVisual.animate(
+            [
+              { filter: "brightness(1)" },
+              { filter: "brightness(1.25) drop-shadow(0 0 14px rgba(255, 220, 140, 0.65))" },
+              { filter: "brightness(1)" }
+            ],
+            { duration: 760, easing: "ease-out" }
+          );
+        }
+        addInteraction();
+      });
+    }
+
+    function initSolarModal() {
+      const open = () => {
+        refs.solarModal.classList.add("open");
+        refs.solarModal.setAttribute("aria-hidden", "false");
+        addInteraction();
+      };
+
+      const close = () => {
+        refs.solarModal.classList.remove("open");
+        refs.solarModal.setAttribute("aria-hidden", "true");
+      };
+
+      refs.solarLaunch.addEventListener("click", open);
+      refs.solarLaunch.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          open();
+        }
+      });
+
+      refs.closeSolarModal.addEventListener("click", close);
+      refs.solarModal.addEventListener("click", (e) => {
+        if (e.target === refs.solarModal) close();
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && refs.solarModal.classList.contains("open")) close();
+      });
+    }
+
+    function initOrbitalDesk() {
+      let boostedUntil = 0;
+      refs.orbitalBoost.addEventListener("click", () => {
+        boostedUntil = Date.now() + 2400;
+        refs.orbitalStatus.textContent = "Boosted pulse engaged";
+        refs.orbitalDial.animate(
           [
-            { transform: "rotate(0deg) scale(1)" },
-            { transform: "rotate(170deg) scale(1.08)" },
-            { transform: "rotate(360deg) scale(1)" }
+            { transform: "scale(1)" },
+            { transform: "scale(1.04)" },
+            { transform: "scale(1)" }
           ],
-          { duration: reduceMotion ? 0 : 880, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)" }
+          { duration: 540, easing: "ease-out" }
         );
         addInteraction();
       });
+
+      setInterval(() => {
+        if (Date.now() > boostedUntil) {
+          refs.orbitalStatus.textContent = "Orbital pulse active";
+        }
+      }, 300);
     }
 
     function initCountdown() {
@@ -1254,6 +1648,8 @@
       initMoonControl();
       initStars();
       initButtons();
+      initSolarModal();
+      initOrbitalDesk();
       initCountdown();
       initTasbih();
       initDuaGenerator();
