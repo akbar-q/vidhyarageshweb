@@ -703,16 +703,16 @@
       border-radius: 50%;
       border: 1px dashed rgba(255, 224, 150, 0.2);
       transform: translate(-50%, -50%);
-      animation: orbit-spin linear infinite;
     }
 
     .real-orbit .real-planet {
       position: absolute;
       left: 50%;
-      top: 0;
+      top: 50%;
       transform: translate(-50%, -50%);
       border-radius: 50%;
       box-shadow: 0 0 8px rgba(255, 220, 138, 0.35);
+      will-change: left, top;
     }
 
     .mercury-orbit { width: 110px; height: 64px; animation-duration: 6s; }
@@ -743,11 +743,6 @@
       border-radius: 50%;
       border: 1px solid rgba(233, 212, 162, 0.75);
       transform: translate(-50%, -50%) rotate(-18deg);
-    }
-
-    @keyframes orbit-spin {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
     @media (max-width: 860px) {
@@ -1086,7 +1081,6 @@
       .hero-main::after,
       body::before,
       .shine,
-      .real-orbit,
       .lantern {
         animation-duration: 12s !important;
       }
@@ -1523,6 +1517,65 @@
       });
     }
 
+    function initRealSolarSystem() {
+      const system = document.querySelector(".solar-real");
+      if (!system || reduceMotion) return;
+
+      const bodies = [
+        { orbit: ".mercury-orbit", planet: ".mercury", speed: 0.0018, phase: 0.4, dir: 1 },
+        { orbit: ".venus-orbit", planet: ".venus", speed: 0.00125, phase: 1.1, dir: 1 },
+        { orbit: ".earth-orbit", planet: ".earth", speed: 0.001, phase: 2.2, dir: 1 },
+        { orbit: ".mars-orbit", planet: ".mars", speed: 0.00078, phase: 2.9, dir: 1 },
+        { orbit: ".jupiter-orbit", planet: ".jupiter", speed: 0.00042, phase: 0.9, dir: 1 },
+        { orbit: ".saturn-orbit", planet: ".saturn", speed: 0.00031, phase: 1.8, dir: 1 },
+        { orbit: ".uranus-orbit", planet: ".uranus", speed: 0.00022, phase: 2.6, dir: 1 },
+        { orbit: ".neptune-orbit", planet: ".neptune", speed: 0.00017, phase: 3.3, dir: 1 }
+      ].map((p) => ({
+        ...p,
+        orbitEl: system.querySelector(p.orbit),
+        planetEl: system.querySelector(p.planet),
+        theta: p.phase
+      })).filter((p) => p.orbitEl && p.planetEl);
+
+      if (!bodies.length) return;
+
+      const positionBodies = () => {
+        const systemRect = system.getBoundingClientRect();
+
+        bodies.forEach((p) => {
+          const o = p.orbitEl.getBoundingClientRect();
+          const rx = o.width / 2;
+          const ry = o.height / 2;
+          const cx = o.left - systemRect.left + rx;
+          const cy = o.top - systemRect.top + ry;
+
+          const eccentricNudge = 1 + 0.03 * Math.sin(p.theta * 2.3);
+          const x = cx + Math.cos(p.theta) * rx * eccentricNudge;
+          const y = cy + Math.sin(p.theta) * ry;
+
+          p.planetEl.style.left = `${x}px`;
+          p.planetEl.style.top = `${y}px`;
+        });
+      };
+
+      let prev = performance.now();
+      const animate = (now) => {
+        const dt = Math.min(40, now - prev);
+        prev = now;
+
+        bodies.forEach((p) => {
+          p.theta += p.speed * dt * p.dir;
+        });
+
+        positionBodies();
+        requestAnimationFrame(animate);
+      };
+
+      positionBodies();
+      requestAnimationFrame(animate);
+      window.addEventListener("resize", positionBodies);
+    }
+
     function initCountdown() {
       const eidSchedule = [
         { date: "2026-03-20T00:00:00", label: "Eid al-Fitr 2026 (estimated)" },
@@ -1691,6 +1744,7 @@
       initStars();
       initButtons();
       initSolarModal();
+      initRealSolarSystem();
       initCountdown();
       initTasbih();
       initDuaGenerator();
