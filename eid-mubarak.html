@@ -89,6 +89,20 @@
       overflow: hidden;
     }
 
+    .twinkle-dot {
+      position: absolute;
+      width: var(--s, 2px);
+      height: var(--s, 2px);
+      left: var(--x, 50%);
+      top: var(--y, 50%);
+      border-radius: 50%;
+      background: rgba(255, 231, 177, 0.95);
+      box-shadow: 0 0 10px rgba(255, 215, 130, 0.55);
+      opacity: 0.2;
+      animation: twinkle-dot var(--d, 4.5s) ease-in-out infinite;
+      animation-delay: var(--delay, 0s);
+    }
+
     .twinkle-backdrop::before,
     .twinkle-backdrop::after {
       content: "";
@@ -137,6 +151,11 @@
       0% { opacity: 0.2; transform: scale(1.01) translateX(0); }
       50% { opacity: 0.54; transform: scale(1) translateX(-1px); }
       100% { opacity: 0.32; transform: scale(1.02) translateX(1px); }
+    }
+
+    @keyframes twinkle-dot {
+      0%, 100% { opacity: 0.08; transform: scale(0.75); }
+      45% { opacity: 0.95; transform: scale(1.3); }
     }
 
     .page {
@@ -579,26 +598,26 @@
       background: linear-gradient(90deg, rgba(255, 236, 182, 0), rgba(255, 236, 182, 0.95));
       transform: rotate(24deg);
       filter: drop-shadow(0 0 7px rgba(255, 220, 136, 0.7));
-      animation: cosmos-shoot 4.8s linear infinite;
+      animation: cosmos-shoot 14s linear infinite;
     }
 
     .cosmos-shoot.one {
       top: 16%;
       left: -26%;
-      animation-delay: 0.2s;
+      animation-delay: 1.2s;
     }
 
     .cosmos-shoot.two {
       top: 62%;
       left: -34%;
-      animation-delay: 2.6s;
+      animation-delay: 8s;
     }
 
     @keyframes cosmos-shoot {
-      0% { transform: translateX(0) translateY(0) rotate(24deg); opacity: 0; }
-      8% { opacity: 1; }
-      35% { opacity: 0.95; }
-      100% { transform: translateX(480px) translateY(160px) rotate(24deg); opacity: 0; }
+      0%, 68% { transform: translateX(0) translateY(0) rotate(24deg); opacity: 0; }
+      72% { opacity: 1; }
+      88% { transform: translateX(480px) translateY(160px) rotate(24deg); opacity: 0.95; }
+      100% { transform: translateX(520px) translateY(172px) rotate(24deg); opacity: 0; }
     }
 
     .solar-tip {
@@ -1444,7 +1463,7 @@
           ctx.fill();
         });
 
-        if (!reduceMotion && Math.random() < 0.018) spawnMeteor();
+        if (!reduceMotion && Math.random() < 0.0035) spawnMeteor();
 
         meteors = meteors.filter((m) => m.life < m.maxLife);
         meteors.forEach((m) => {
@@ -1578,7 +1597,7 @@
 
     function initRealSolarSystem() {
       const system = document.querySelector(".solar-real");
-      if (!system || reduceMotion) return;
+      if (!system) return;
 
       const bodies = [
         { orbit: ".mercury-orbit", planet: ".mercury", speed: 0.0018, phase: 0.4, dir: 1 },
@@ -1599,18 +1618,13 @@
       if (!bodies.length) return;
 
       const positionBodies = () => {
-        const systemRect = system.getBoundingClientRect();
-
         bodies.forEach((p) => {
-          const o = p.orbitEl.getBoundingClientRect();
-          const rx = o.width / 2;
-          const ry = o.height / 2;
-          const cx = o.left - systemRect.left + rx;
-          const cy = o.top - systemRect.top + ry;
+          const rx = p.orbitEl.clientWidth / 2;
+          const ry = p.orbitEl.clientHeight / 2;
 
           const eccentricNudge = 1 + 0.03 * Math.sin(p.theta * 2.3);
-          const x = cx + Math.cos(p.theta) * rx * eccentricNudge;
-          const y = cy + Math.sin(p.theta) * ry;
+          const x = rx + Math.cos(p.theta) * rx * eccentricNudge;
+          const y = ry + Math.sin(p.theta) * ry;
 
           p.planetEl.style.left = `${x}px`;
           p.planetEl.style.top = `${y}px`;
@@ -1631,8 +1645,26 @@
       };
 
       positionBodies();
-      requestAnimationFrame(animate);
+      if (!reduceMotion) requestAnimationFrame(animate);
       window.addEventListener("resize", positionBodies);
+    }
+
+    function initTwinkleBackdrop() {
+      const layer = document.querySelector(".twinkle-backdrop");
+      if (!layer) return;
+      layer.innerHTML = "";
+
+      const count = reduceMotion ? 40 : 90;
+      for (let i = 0; i < count; i += 1) {
+        const dot = document.createElement("span");
+        dot.className = "twinkle-dot";
+        dot.style.setProperty("--x", `${Math.random() * 100}%`);
+        dot.style.setProperty("--y", `${Math.random() * 100}%`);
+        dot.style.setProperty("--s", `${1 + Math.random() * 2.4}px`);
+        dot.style.setProperty("--d", `${2.8 + Math.random() * 4.2}s`);
+        dot.style.setProperty("--delay", `${Math.random() * 4.6}s`);
+        layer.appendChild(dot);
+      }
     }
 
     function initCountdown() {
@@ -1800,6 +1832,7 @@
 
     function init() {
       initMoonControl();
+      initTwinkleBackdrop();
       initStars();
       initButtons();
       initSolarModal();
