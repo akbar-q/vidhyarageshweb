@@ -61,11 +61,18 @@
       background-image: radial-gradient(rgba(255, 226, 150, 0.2) 1px, transparent 1px);
       background-size: 2px 2px;
       mask-image: radial-gradient(circle at center, black 30%, transparent 95%);
+      animation: backdrop-twinkle 4.2s ease-in-out infinite alternate;
     }
 
     @keyframes sheen {
       from { transform: translateX(-18%); }
       to { transform: translateX(18%); }
+    }
+
+    @keyframes backdrop-twinkle {
+      0% { opacity: 0.18; filter: brightness(0.9); }
+      45% { opacity: 0.36; filter: brightness(1.08); }
+      100% { opacity: 0.24; filter: brightness(0.95); }
     }
 
     .bg-canvas,
@@ -514,7 +521,7 @@
       width: 90px;
       height: 2px;
       background: linear-gradient(90deg, rgba(255, 236, 182, 0), rgba(255, 236, 182, 0.95));
-      transform: rotate(-24deg);
+      transform: rotate(24deg);
       filter: drop-shadow(0 0 7px rgba(255, 220, 136, 0.7));
       animation: cosmos-shoot 4.8s linear infinite;
     }
@@ -532,10 +539,10 @@
     }
 
     @keyframes cosmos-shoot {
-      0% { transform: translateX(0) translateY(0) rotate(-24deg); opacity: 0; }
+      0% { transform: translateX(0) translateY(0) rotate(24deg); opacity: 0; }
       8% { opacity: 1; }
       35% { opacity: 0.95; }
-      100% { transform: translateX(480px) translateY(160px) rotate(-24deg); opacity: 0; }
+      100% { transform: translateX(480px) translateY(160px) rotate(24deg); opacity: 0; }
     }
 
     .solar-tip {
@@ -545,90 +552,61 @@
       opacity: 0.9;
     }
 
-    .orbital-desk {
+    .wish-panel {
       border: 1px solid rgba(255, 230, 160, 0.3);
       border-radius: 14px;
-      padding: 10px;
+      padding: 12px;
       background: rgba(255, 221, 141, 0.05);
+      min-height: 170px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
     }
 
-    .orbital-dial {
+    .wish-lanterns {
       position: relative;
-      height: 148px;
+      height: 86px;
       border-radius: 12px;
+      background: radial-gradient(circle at 20% 25%, rgba(255, 224, 150, 0.22), transparent 42%), #130c04;
       border: 1px solid rgba(255, 230, 170, 0.24);
       overflow: hidden;
-      background: radial-gradient(circle at 26% 24%, rgba(255, 224, 140, 0.15), transparent 36%), #130c04;
     }
 
-    .dial-ring {
+    .lantern {
+      position: absolute;
+      width: 18px;
+      height: 24px;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #f8e5b2, #bf8d34);
+      box-shadow: 0 0 12px rgba(255, 216, 130, 0.62);
+      animation: lantern-float 3.8s ease-in-out infinite;
+    }
+
+    .lantern::before {
+      content: "";
       position: absolute;
       left: 50%;
-      top: 50%;
-      border-radius: 50%;
-      border: 1px dashed rgba(255, 229, 162, 0.36);
-      transform: translate(-50%, -50%);
-      animation: ring-rotate 11s linear infinite;
+      top: -10px;
+      width: 1px;
+      height: 10px;
+      background: rgba(255, 226, 156, 0.55);
+      transform: translateX(-50%);
     }
 
-    .dial-ring.r1 { width: 52px; height: 52px; }
-    .dial-ring.r2 { width: 86px; height: 86px; animation-direction: reverse; }
-    .dial-ring.r3 { width: 120px; height: 120px; }
+    .lantern.l1 { left: 15%; top: 24px; animation-delay: 0s; }
+    .lantern.l2 { left: 44%; top: 16px; animation-delay: 0.8s; }
+    .lantern.l3 { left: 72%; top: 28px; animation-delay: 1.4s; }
 
-    .dial-core {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(circle at 32% 32%, #fff0c1, #cc973c 68%, #8f651f);
-      box-shadow: 0 0 14px rgba(255, 214, 121, 0.65);
+    @keyframes lantern-float {
+      0%, 100% { transform: translateY(0) rotate(-2deg); }
+      50% { transform: translateY(-10px) rotate(2deg); }
     }
 
-    .dial-dot {
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      transform: rotate(var(--angle)) translateX(var(--radius));
-      transform-origin: 0 0;
-      background: #f6ddb0;
-      animation: dot-pulse 1.6s ease-in-out infinite;
-      animation-delay: var(--delay);
-    }
-
-    @keyframes ring-rotate {
-      from { transform: translate(-50%, -50%) rotate(0deg); }
-      to { transform: translate(-50%, -50%) rotate(360deg); }
-    }
-
-    @keyframes dot-pulse {
-      0%, 100% { opacity: 0.4; transform: rotate(var(--angle)) translateX(var(--radius)) scale(0.8); }
-      50% { opacity: 1; transform: rotate(var(--angle)) translateX(var(--radius)) scale(1.2); }
-    }
-
-    .orbital-meta {
-      margin-top: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 8px;
-      color: var(--ink-muted);
-      font-size: 0.78rem;
-    }
-
-    .orbital-btn {
-      border: 1px solid rgba(255, 229, 160, 0.38);
-      background: rgba(255, 229, 160, 0.08);
-      color: #f8e8be;
-      border-radius: 10px;
-      padding: 6px 10px;
-      cursor: pointer;
-      font: inherit;
+    .wish-text {
+      margin: 0;
+      color: #f1dfb0;
+      line-height: 1.55;
+      font-size: 0.9rem;
     }
 
     .solar-modal {
@@ -683,6 +661,114 @@
       height: 100%;
       border: 0;
       background: transparent;
+    }
+
+    .solar-real {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 450px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(255, 223, 145, 0.12), transparent 34%),
+        radial-gradient(circle at 80% 74%, rgba(214, 152, 60, 0.12), transparent 38%),
+        #0d0702;
+    }
+
+    .space-dust {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(rgba(255, 228, 166, 0.7) 1px, transparent 1px),
+        radial-gradient(rgba(255, 215, 130, 0.55) 1px, transparent 1px);
+      background-size: 3px 3px, 4px 4px;
+      background-position: 0 0, 20px 30px;
+      opacity: 0.22;
+      animation: dust-twinkle 3.6s ease-in-out infinite alternate;
+      pointer-events: none;
+    }
+
+    @keyframes dust-twinkle {
+      from { opacity: 0.16; }
+      to { opacity: 0.35; }
+    }
+
+    .real-sun {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, #fff2c9, #d4a049 64%, #8f631f);
+      box-shadow: 0 0 34px rgba(255, 205, 108, 0.7), 0 0 75px rgba(255, 170, 70, 0.35);
+      z-index: 2;
+    }
+
+    .real-orbit {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      border: 1px dashed rgba(255, 224, 150, 0.2);
+      transform: translate(-50%, -50%);
+      animation: orbit-spin linear infinite;
+    }
+
+    .real-orbit .real-planet {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      box-shadow: 0 0 8px rgba(255, 220, 138, 0.35);
+    }
+
+    .mercury-orbit { width: 110px; height: 64px; animation-duration: 6s; }
+    .venus-orbit { width: 150px; height: 88px; animation-duration: 9s; }
+    .earth-orbit { width: 198px; height: 114px; animation-duration: 12s; }
+    .mars-orbit { width: 246px; height: 142px; animation-duration: 17s; }
+    .jupiter-orbit { width: 318px; height: 182px; animation-duration: 28s; }
+    .saturn-orbit { width: 390px; height: 226px; animation-duration: 36s; }
+    .uranus-orbit { width: 456px; height: 264px; animation-duration: 44s; }
+    .neptune-orbit { width: 522px; height: 302px; animation-duration: 52s; }
+
+    .mercury { width: 5px; height: 5px; background: #d4b589; }
+    .venus { width: 8px; height: 8px; background: #d3a462; }
+    .earth { width: 8px; height: 8px; background: #7bb4ff; }
+    .mars { width: 7px; height: 7px; background: #c46644; }
+    .jupiter { width: 14px; height: 14px; background: #c8a06b; }
+    .saturn { width: 12px; height: 12px; background: #d6ba8d; }
+    .uranus { width: 10px; height: 10px; background: #7dc9c9; }
+    .neptune { width: 10px; height: 10px; background: #5b7dd6; }
+
+    .saturn::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 20px;
+      height: 8px;
+      border-radius: 50%;
+      border: 1px solid rgba(233, 212, 162, 0.75);
+      transform: translate(-50%, -50%) rotate(-18deg);
+    }
+
+    @keyframes orbit-spin {
+      from { transform: translate(-50%, -50%) rotate(0deg); }
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
+    @media (max-width: 860px) {
+      .solar-real {
+        min-height: 360px;
+      }
+
+      .neptune-orbit { width: 420px; height: 246px; }
+      .uranus-orbit { width: 374px; height: 220px; }
+      .saturn-orbit { width: 328px; height: 190px; }
+      .jupiter-orbit { width: 278px; height: 160px; }
     }
 
     .close-modal {
@@ -1006,11 +1092,12 @@
       .coin,
       .cosmos-shooting,
       .planet,
-      .dial-ring,
       .hero-main::before,
       .hero-main::after,
       body::before,
-      .shine {
+      .shine,
+      .real-orbit,
+      .lantern {
         animation-duration: 12s !important;
       }
     }
@@ -1135,21 +1222,13 @@
             </div>
           </div>
           <div>
-            <div class="orbital-desk">
-              <div class="orbital-dial" id="orbitalDial" aria-hidden="true">
-                <span class="dial-ring r1"></span>
-                <span class="dial-ring r2"></span>
-                <span class="dial-ring r3"></span>
-                <span class="dial-core"></span>
-                <span class="dial-dot" style="--angle: 20deg; --radius: 24px; --delay: 0s;"></span>
-                <span class="dial-dot" style="--angle: 110deg; --radius: 42px; --delay: 0.3s;"></span>
-                <span class="dial-dot" style="--angle: 220deg; --radius: 58px; --delay: 0.6s;"></span>
-                <span class="dial-dot" style="--angle: 290deg; --radius: 58px; --delay: 0.9s;"></span>
+            <div class="wish-panel">
+              <div class="wish-lanterns" aria-hidden="true">
+                <span class="lantern l1"></span>
+                <span class="lantern l2"></span>
+                <span class="lantern l3"></span>
               </div>
-              <div class="orbital-meta">
-                <span id="orbitalStatus">Orbital pulse active</span>
-                <button class="orbital-btn" id="orbitalBoost" type="button">Boost</button>
-              </div>
+              <p class="wish-text">Eid Mubarak. May your home be filled with warmth, your table with blessing, and your heart with lasting peace.</p>
             </div>
           </div>
         </div>
@@ -1168,14 +1247,17 @@
         <button class="close-modal" id="closeSolarModal" type="button">Close</button>
       </div>
       <div class="solar-modal-sky">
-        <div class="cosmos" aria-hidden="true">
-          <span class="orbit orbit-1"></span>
-          <span class="orbit orbit-2"></span>
-          <span class="orbit orbit-3"></span>
-          <span class="sun"></span>
-          <span class="planet planet-1"></span>
-          <span class="planet planet-2"></span>
-          <span class="planet planet-3"></span>
+        <div class="solar-real" aria-hidden="true">
+          <span class="space-dust"></span>
+          <span class="real-sun"></span>
+          <span class="real-orbit mercury-orbit"><span class="real-planet mercury"></span></span>
+          <span class="real-orbit venus-orbit"><span class="real-planet venus"></span></span>
+          <span class="real-orbit earth-orbit"><span class="real-planet earth"></span></span>
+          <span class="real-orbit mars-orbit"><span class="real-planet mars"></span></span>
+          <span class="real-orbit jupiter-orbit"><span class="real-planet jupiter"></span></span>
+          <span class="real-orbit saturn-orbit"><span class="real-planet saturn"></span></span>
+          <span class="real-orbit uranus-orbit"><span class="real-planet uranus"></span></span>
+          <span class="real-orbit neptune-orbit"><span class="real-planet neptune"></span></span>
           <span class="cosmos-shooting one"></span>
           <span class="cosmos-shooting two"></span>
         </div>
@@ -1214,10 +1296,7 @@
       quoteText: document.getElementById("quoteText"),
       nextQuote: document.getElementById("nextQuote"),
       easter: document.getElementById("easter"),
-      heroPanel: document.getElementById("heroPanel"),
-      orbitalDial: document.getElementById("orbitalDial"),
-      orbitalStatus: document.getElementById("orbitalStatus"),
-      orbitalBoost: document.getElementById("orbitalBoost")
+      heroPanel: document.getElementById("heroPanel")
     };
 
     let interactions = 0;
@@ -1458,29 +1537,6 @@
       });
     }
 
-    function initOrbitalDesk() {
-      let boostedUntil = 0;
-      refs.orbitalBoost.addEventListener("click", () => {
-        boostedUntil = Date.now() + 2400;
-        refs.orbitalStatus.textContent = "Boosted pulse engaged";
-        refs.orbitalDial.animate(
-          [
-            { transform: "scale(1)" },
-            { transform: "scale(1.04)" },
-            { transform: "scale(1)" }
-          ],
-          { duration: 540, easing: "ease-out" }
-        );
-        addInteraction();
-      });
-
-      setInterval(() => {
-        if (Date.now() > boostedUntil) {
-          refs.orbitalStatus.textContent = "Orbital pulse active";
-        }
-      }, 300);
-    }
-
     function initCountdown() {
       const eidSchedule = [
         { date: "2026-03-20T00:00:00", label: "Eid al-Fitr 2026 (estimated)" },
@@ -1649,7 +1705,6 @@
       initStars();
       initButtons();
       initSolarModal();
-      initOrbitalDesk();
       initCountdown();
       initTasbih();
       initDuaGenerator();
