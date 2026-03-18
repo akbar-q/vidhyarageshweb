@@ -1,0 +1,1097 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Eid Mubarak | Golden Night Experience</title>
+  <meta name="description" content="A quirky, animation-rich, gold-themed Eid Mubarak celebration page." />
+  <meta name="theme-color" content="#100a04" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&family=Manrope:wght@400;600;700;800&family=Reem+Kufi+Fun:wght@400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg-0: #0f0a04;
+      --bg-1: #1a1207;
+      --bg-2: #251a0b;
+      --gold-1: #f5d27a;
+      --gold-2: #d5aa45;
+      --gold-3: #b7882b;
+      --gold-4: #fff2c8;
+      --ink: #f7ebc9;
+      --ink-muted: #d8bf86;
+      --card: rgba(27, 18, 7, 0.72);
+      --line: rgba(245, 210, 122, 0.35);
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+      --radius-lg: 26px;
+      --radius-md: 16px;
+      --transition: 260ms ease;
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      min-height: 100%;
+      color: var(--ink);
+      background: radial-gradient(circle at 14% 16%, rgba(213, 170, 69, 0.22), transparent 45%),
+        radial-gradient(circle at 88% 6%, rgba(255, 242, 200, 0.12), transparent 44%),
+        linear-gradient(145deg, var(--bg-0), var(--bg-1) 54%, var(--bg-2));
+      font-family: "Manrope", "Segoe UI", sans-serif;
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::before {
+      background-image: linear-gradient(120deg, rgba(255, 240, 190, 0.04) 10%, transparent 35%, rgba(245, 210, 122, 0.04) 62%, transparent 88%);
+      animation: sheen 9s linear infinite;
+    }
+
+    body::after {
+      z-index: -1;
+      opacity: 0.32;
+      background-image: radial-gradient(rgba(255, 226, 150, 0.2) 1px, transparent 1px);
+      background-size: 2px 2px;
+      mask-image: radial-gradient(circle at center, black 30%, transparent 95%);
+    }
+
+    @keyframes sheen {
+      from { transform: translateX(-18%); }
+      to { transform: translateX(18%); }
+    }
+
+    .bg-canvas,
+    .coin-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      padding: 18px 18px 72px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 12px;
+      z-index: 12;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(15, 10, 4, 0.75);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: "Reem Kufi Fun", "Manrope", sans-serif;
+      letter-spacing: 0.4px;
+      color: var(--gold-4);
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: conic-gradient(from 180deg, #fff0c0, #c69537, #8f651f, #fff0c0);
+      display: grid;
+      place-items: center;
+      color: #1b1309;
+      font-size: 1.05rem;
+      box-shadow: 0 0 0 4px rgba(255, 237, 183, 0.1);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav a {
+      text-decoration: none;
+      color: var(--ink);
+      border: 1px solid var(--line);
+      padding: 7px 11px;
+      border-radius: 999px;
+      font-size: 0.82rem;
+      transition: transform var(--transition), background var(--transition), border-color var(--transition);
+      background: rgba(255, 230, 150, 0.06);
+    }
+
+    .nav a:hover,
+    .nav a:focus-visible {
+      transform: translateY(-2px);
+      background: rgba(255, 234, 176, 0.14);
+      border-color: rgba(255, 240, 190, 0.68);
+      outline: none;
+    }
+
+    .hero {
+      margin-top: 26px;
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      gap: 20px;
+    }
+
+    .panel {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--card);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(5px);
+    }
+
+    .hero-main {
+      position: relative;
+      padding: clamp(20px, 3.8vw, 44px);
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .hero-main::before {
+      content: "";
+      position: absolute;
+      inset: -30% -10%;
+      background: radial-gradient(circle at 20% 20%, rgba(255, 238, 188, 0.22), transparent 46%),
+        radial-gradient(circle at 78% 28%, rgba(201, 151, 60, 0.3), transparent 48%),
+        radial-gradient(circle at 60% 80%, rgba(134, 94, 26, 0.3), transparent 45%);
+      filter: blur(14px);
+      z-index: -1;
+      animation: breathing 8s ease-in-out infinite;
+    }
+
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    .tagline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 236, 176, 0.5);
+      background: rgba(255, 230, 150, 0.12);
+      font-size: 0.8rem;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      color: var(--gold-4);
+      font-weight: 700;
+    }
+
+    h1 {
+      margin: 14px 0 10px;
+      line-height: 1.06;
+      font-family: "Cinzel Decorative", serif;
+      font-size: clamp(2rem, 4.5vw, 4.1rem);
+      font-weight: 900;
+      letter-spacing: 1px;
+      text-wrap: balance;
+      color: #ffeec0;
+      text-shadow: 0 0 22px rgba(245, 210, 122, 0.28);
+    }
+
+    .shine {
+      background: linear-gradient(120deg, #ffefbe 10%, #cf9d3f 34%, #ffefbe 52%, #8d651f 68%, #ffefbe 84%);
+      background-size: 220% auto;
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: text-shine 4.3s linear infinite;
+    }
+
+    @keyframes text-shine {
+      to { background-position: 220% center; }
+    }
+
+    .hero-main p {
+      margin: 0;
+      max-width: 62ch;
+      color: var(--ink-muted);
+      line-height: 1.6;
+      font-size: 1rem;
+    }
+
+    .hero-actions {
+      margin-top: 22px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 12px;
+      padding: 11px 15px;
+      font-family: "Manrope", sans-serif;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      cursor: pointer;
+      color: #231706;
+      background: linear-gradient(135deg, #fce3a2, #d3a247);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.35);
+      transition: transform var(--transition), filter var(--transition);
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-3px);
+      filter: brightness(1.08);
+      outline: none;
+    }
+
+    .btn.alt {
+      background: rgba(255, 233, 172, 0.08);
+      color: var(--ink);
+      border-color: rgba(255, 229, 164, 0.35);
+      box-shadow: none;
+    }
+
+    .hero-side {
+      padding: 18px;
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .moon-wrap {
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      padding: 14px;
+      background: linear-gradient(145deg, rgba(44, 30, 12, 0.8), rgba(26, 18, 7, 0.7));
+    }
+
+    .moon-grid {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .moon {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 34% 30%, #fff6d9, #e2bd6b 44%, #8b6726 78%);
+      position: relative;
+      border: 1px solid rgba(255, 231, 166, 0.4);
+      overflow: hidden;
+      box-shadow: 0 0 22px rgba(236, 189, 95, 0.36);
+      margin-inline: auto;
+    }
+
+    .moon-shadow {
+      position: absolute;
+      inset: -2%;
+      border-radius: 50%;
+      background: #1b1308;
+      transform: translateX(15%);
+      transition: transform 360ms ease;
+    }
+
+    .moon-label {
+      margin: 0;
+      font-size: 0.88rem;
+      color: var(--ink-muted);
+    }
+
+    .moon-title {
+      margin: 0 0 6px;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--gold-4);
+    }
+
+    .range {
+      width: 100%;
+      accent-color: #f2c96d;
+      margin-top: 10px;
+    }
+
+    .mini-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .stat {
+      border-radius: 12px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      background: rgba(255, 228, 152, 0.06);
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.1rem;
+      color: var(--gold-4);
+    }
+
+    .stat span {
+      font-size: 0.75rem;
+      color: var(--ink-muted);
+    }
+
+    .sections {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      grid-column: span 4;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--line);
+      background: linear-gradient(145deg, rgba(35, 23, 8, 0.8), rgba(22, 15, 6, 0.8));
+      transform-style: preserve-3d;
+      transition: transform var(--transition), border-color var(--transition);
+      min-height: 188px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 231, 168, 0.24), transparent 72%);
+      right: -46px;
+      top: -50px;
+      pointer-events: none;
+    }
+
+    .card:hover {
+      border-color: rgba(255, 236, 182, 0.72);
+    }
+
+    .card h3 {
+      margin: 0 0 6px;
+      font-family: "Reem Kufi Fun", sans-serif;
+      color: var(--gold-4);
+      font-size: 1.15rem;
+      letter-spacing: 0.3px;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--ink-muted);
+      line-height: 1.55;
+      font-size: 0.92rem;
+    }
+
+    .card .meta {
+      margin-top: 12px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      border: 1px dashed rgba(255, 231, 166, 0.33);
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      color: #f9df9e;
+    }
+
+    .wide {
+      grid-column: span 6;
+      padding: 18px;
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(58px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .time-box {
+      text-align: center;
+      border-radius: 12px;
+      background: rgba(255, 232, 167, 0.08);
+      border: 1px solid rgba(255, 232, 167, 0.28);
+      padding: 9px 6px;
+    }
+
+    .time-box strong {
+      display: block;
+      font-size: 1.28rem;
+      color: var(--gold-4);
+    }
+
+    .time-box span {
+      font-size: 0.74rem;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .tasbih {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255, 232, 167, 0.33);
+      padding: 10px;
+      background: rgba(255, 228, 151, 0.06);
+    }
+
+    .beads {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      width: 162px;
+    }
+
+    .bead {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: rgba(255, 224, 145, 0.2);
+      border: 1px solid rgba(255, 235, 187, 0.28);
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .bead.active {
+      background: linear-gradient(135deg, #fef1c8, #d4a54b);
+      transform: translateY(-2px);
+    }
+
+    .tasbih-count {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: var(--gold-4);
+      min-width: 54px;
+      text-align: right;
+    }
+
+    .dua-box {
+      margin-top: 12px;
+      border-radius: 14px;
+      padding: 12px;
+      background: rgba(255, 230, 150, 0.06);
+      border: 1px solid rgba(255, 234, 176, 0.3);
+      min-height: 96px;
+    }
+
+    .dua-text {
+      margin: 0;
+      color: #f5dfac;
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .quote {
+      font-family: "Reem Kufi Fun", sans-serif;
+      font-size: 1.18rem;
+      color: #ffeec2;
+      margin: 4px 0 0;
+      min-height: 52px;
+      text-wrap: balance;
+    }
+
+    .footer {
+      margin-top: 20px;
+      text-align: center;
+      color: var(--ink-muted);
+      font-size: 0.86rem;
+    }
+
+    .easter {
+      position: fixed;
+      right: 10px;
+      bottom: 10px;
+      z-index: 30;
+      background: rgba(255, 230, 150, 0.1);
+      border: 1px dashed rgba(255, 230, 150, 0.32);
+      color: var(--ink-muted);
+      padding: 7px 10px;
+      border-radius: 999px;
+      font-size: 0.76rem;
+      user-select: none;
+    }
+
+    .coin {
+      position: absolute;
+      top: -30px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle at 32% 28%, #fff3cf, #c59134 58%, #7e5a1f);
+      border: 1px solid rgba(255, 236, 183, 0.46);
+      animation: coin-fall linear forwards;
+      box-shadow: 0 0 16px rgba(230, 180, 67, 0.55);
+    }
+
+    @keyframes coin-fall {
+      to {
+        transform: translate3d(var(--drift), 106vh, 0) rotate(660deg);
+        opacity: 0.08;
+      }
+    }
+
+    .pulse {
+      animation: pulse 650ms ease;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      40% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .flash {
+      animation: flash 460ms ease;
+    }
+
+    @keyframes flash {
+      0% { box-shadow: 0 0 0 rgba(255, 226, 147, 0); }
+      40% { box-shadow: 0 0 40px rgba(255, 226, 147, 0.36); }
+      100% { box-shadow: 0 0 0 rgba(255, 226, 147, 0); }
+    }
+
+    @media (max-width: 1040px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .sections .card {
+        grid-column: span 6;
+      }
+
+      .sections .wide {
+        grid-column: span 12;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar {
+        border-radius: 18px;
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .moon-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .sections .card,
+      .sections .wide {
+        grid-column: span 12;
+      }
+
+      .countdown {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .grid-two {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="bg-canvas" id="bgCanvas" aria-hidden="true"></canvas>
+  <div class="coin-layer" id="coinLayer" aria-hidden="true"></div>
+
+  <main class="page">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark">☪</span>
+        <span>Golden Eid Lab</span>
+      </div>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="./index.html">Home</a>
+        <a href="./moments.html">Moments</a>
+        <a href="./gallery.html">Gallery</a>
+        <a href="./poetry.html">Poetry</a>
+        <a href="./extras.html">Extras</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <article class="panel hero-main flash" id="heroPanel">
+        <span class="tagline">Quirky . Experimental . Mubarak</span>
+        <h1><span class="shine">Eid Mubarak</span><br/>May your joy compound in gold.</h1>
+        <p>
+          This page is engineered like a tiny festival: procedural starfield, interactive moon phases,
+          dua rotator, tasbih counter, coin-burst physics, and layered motion tuned for both desktop
+          and mobile. Tap everything. It was built to flex.
+        </p>
+        <div class="hero-actions">
+          <button class="btn" id="blessingBurst" type="button">Blessing Burst</button>
+          <button class="btn alt" id="nightToggle" type="button" aria-pressed="false">Toggle Night Glow</button>
+          <button class="btn alt" id="spinMoon" type="button">Spin Crescent</button>
+        </div>
+      </article>
+
+      <aside class="panel hero-side">
+        <section class="moon-wrap">
+          <div class="moon-grid">
+            <div class="moon" id="moonVisual" aria-hidden="true">
+              <div class="moon-shadow" id="moonShadow"></div>
+            </div>
+            <div>
+              <p class="moon-title" id="moonPhase">Waxing Crescent</p>
+              <p class="moon-label">Slide to scrub lunar phase</p>
+              <input class="range" id="phaseSlider" type="range" min="0" max="100" value="18" aria-label="Moon phase slider" />
+            </div>
+          </div>
+        </section>
+        <div class="mini-stats">
+          <div class="stat"><strong id="starCount">0</strong><span>Stars Rendered</span></div>
+          <div class="stat"><strong id="burstCount">0</strong><span>Bursts Fired</span></div>
+          <div class="stat"><strong id="tapCount">0</strong><span>Interactions</span></div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="sections">
+      <article class="card" data-tilt>
+        <h3>Eid Countdown</h3>
+        <p>Dynamic timer to the next configured Eid date with graceful rollover.</p>
+        <div class="countdown" id="countdown" aria-live="polite">
+          <div class="time-box"><strong>--</strong><span>Days</span></div>
+          <div class="time-box"><strong>--</strong><span>Hours</span></div>
+          <div class="time-box"><strong>--</strong><span>Mins</span></div>
+          <div class="time-box"><strong>--</strong><span>Secs</span></div>
+        </div>
+        <div class="meta" id="targetDate">Target: calculating...</div>
+      </article>
+
+      <article class="card" data-tilt>
+        <h3>Tasbih Tap Counter</h3>
+        <p>Click or press <strong>space</strong> to increment. Auto-cycles every 33 beats.</p>
+        <div class="tasbih">
+          <div class="beads" id="beads"></div>
+          <div class="tasbih-count" id="tasbihCount">0</div>
+        </div>
+        <div class="hero-actions" style="margin-top:10px;">
+          <button class="btn alt" id="tasbihTap" type="button">SubhanAllah</button>
+          <button class="btn alt" id="tasbihReset" type="button">Reset</button>
+        </div>
+      </article>
+
+      <article class="card" data-tilt>
+        <h3>Quirky Blessing Generator</h3>
+        <p>Every click assembles a playful Eid dua with weighted phrase pools.</p>
+        <div class="dua-box">
+          <p class="dua-text" id="duaText">May your Eid be lined with barakah, bold ideas, and beautiful surprises.</p>
+        </div>
+        <div class="hero-actions" style="margin-top:10px;">
+          <button class="btn alt" id="newDua" type="button">Generate Dua</button>
+        </div>
+      </article>
+
+      <article class="card wide" data-tilt>
+        <h3>Live Quote Stream</h3>
+        <p>This section uses a typewriter animator and timed phrase switching for cinematic rhythm.</p>
+        <div class="grid-two">
+          <div>
+            <p class="quote" id="quoteText"></p>
+            <div class="hero-actions" style="margin-top:8px;">
+              <button class="btn alt" id="nextQuote" type="button">Next Line</button>
+            </div>
+          </div>
+          <div>
+            <p class="dua-text">
+              Bonus interactions:
+              drag the moon slider,
+              burst coins,
+              and keep tapping tasbih to unlock the hidden finale at 99.
+            </p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <p class="footer">Crafted for Eid joy with unapologetic gold maximalism.</p>
+  </main>
+
+  <div class="easter" id="easter">Secret: reach 99 taps</div>
+
+  <script>
+    const reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const refs = {
+      canvas: document.getElementById("bgCanvas"),
+      coinLayer: document.getElementById("coinLayer"),
+      blessingBurst: document.getElementById("blessingBurst"),
+      nightToggle: document.getElementById("nightToggle"),
+      spinMoon: document.getElementById("spinMoon"),
+      moonVisual: document.getElementById("moonVisual"),
+      moonShadow: document.getElementById("moonShadow"),
+      phaseSlider: document.getElementById("phaseSlider"),
+      moonPhase: document.getElementById("moonPhase"),
+      starCount: document.getElementById("starCount"),
+      burstCount: document.getElementById("burstCount"),
+      tapCount: document.getElementById("tapCount"),
+      countdown: document.getElementById("countdown"),
+      targetDate: document.getElementById("targetDate"),
+      beads: document.getElementById("beads"),
+      tasbihCount: document.getElementById("tasbihCount"),
+      tasbihTap: document.getElementById("tasbihTap"),
+      tasbihReset: document.getElementById("tasbihReset"),
+      duaText: document.getElementById("duaText"),
+      newDua: document.getElementById("newDua"),
+      quoteText: document.getElementById("quoteText"),
+      nextQuote: document.getElementById("nextQuote"),
+      easter: document.getElementById("easter"),
+      heroPanel: document.getElementById("heroPanel")
+    };
+
+    let interactions = 0;
+    let burstCounter = 0;
+
+    function addInteraction(count = 1) {
+      interactions += count;
+      refs.tapCount.textContent = String(interactions);
+    }
+
+    function initMoonControl() {
+      const phaseNames = [
+        "New Moon", "Waxing Crescent", "First Quarter", "Waxing Gibbous",
+        "Full Moon", "Waning Gibbous", "Last Quarter", "Waning Crescent"
+      ];
+
+      const updatePhase = (v) => {
+        const n = Number(v) / 100;
+        const shift = Math.round((n - 0.5) * 200);
+        refs.moonShadow.style.transform = `translateX(${shift}%)`;
+
+        const idx = Math.min(7, Math.max(0, Math.floor(n * 8)));
+        refs.moonPhase.textContent = phaseNames[idx];
+      };
+
+      refs.phaseSlider.addEventListener("input", (e) => {
+        updatePhase(e.target.value);
+        addInteraction();
+      });
+
+      updatePhase(refs.phaseSlider.value);
+    }
+
+    function initStars() {
+      const canvas = refs.canvas;
+      const ctx = canvas.getContext("2d");
+      let stars = [];
+      let rafId = null;
+
+      const fit = () => {
+        canvas.width = window.innerWidth * Math.min(window.devicePixelRatio || 1, 2);
+        canvas.height = window.innerHeight * Math.min(window.devicePixelRatio || 1, 2);
+        canvas.style.width = `${window.innerWidth}px`;
+        canvas.style.height = `${window.innerHeight}px`;
+      };
+
+      const spawnStars = () => {
+        const density = Math.round((window.innerWidth * window.innerHeight) / 9000);
+        stars = Array.from({ length: density }, () => ({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.4 + 0.4,
+          o: Math.random() * 0.8 + 0.1,
+          tw: Math.random() * 0.03 + 0.006
+        }));
+        refs.starCount.textContent = String(stars.length);
+      };
+
+      const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        stars.forEach((s) => {
+          s.o += s.tw;
+          if (s.o > 1 || s.o < 0.1) s.tw *= -1;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(255, 220, 135, ${Math.max(0.1, Math.min(1, s.o))})`;
+          ctx.fill();
+        });
+
+        if (!reduceMotion) rafId = requestAnimationFrame(draw);
+      };
+
+      fit();
+      spawnStars();
+      draw();
+
+      window.addEventListener("resize", () => {
+        fit();
+        spawnStars();
+      });
+
+      return () => {
+        if (rafId) cancelAnimationFrame(rafId);
+      };
+    }
+
+    function emitCoins(amount = 22) {
+      for (let i = 0; i < amount; i += 1) {
+        const coin = document.createElement("span");
+        coin.className = "coin";
+        coin.style.left = `${Math.random() * 100}%`;
+        coin.style.animationDuration = `${2.7 + Math.random() * 2.2}s`;
+        coin.style.setProperty("--drift", `${Math.round((Math.random() - 0.5) * 220)}px`);
+        refs.coinLayer.appendChild(coin);
+        setTimeout(() => coin.remove(), 5300);
+      }
+      burstCounter += 1;
+      refs.burstCount.textContent = String(burstCounter);
+      refs.heroPanel.classList.remove("pulse");
+      void refs.heroPanel.offsetWidth;
+      refs.heroPanel.classList.add("pulse");
+    }
+
+    function initButtons() {
+      refs.blessingBurst.addEventListener("click", () => {
+        emitCoins(28);
+        addInteraction();
+      });
+
+      refs.nightToggle.addEventListener("click", () => {
+        const on = refs.nightToggle.getAttribute("aria-pressed") === "true";
+        refs.nightToggle.setAttribute("aria-pressed", String(!on));
+        document.documentElement.style.setProperty("--bg-0", on ? "#0f0a04" : "#0a0603");
+        document.documentElement.style.setProperty("--bg-1", on ? "#1a1207" : "#120b04");
+        document.documentElement.style.setProperty("--bg-2", on ? "#251a0b" : "#1a1208");
+        addInteraction();
+      });
+
+      refs.spinMoon.addEventListener("click", () => {
+        refs.moonVisual.animate(
+          [
+            { transform: "rotate(0deg) scale(1)" },
+            { transform: "rotate(170deg) scale(1.08)" },
+            { transform: "rotate(360deg) scale(1)" }
+          ],
+          { duration: reduceMotion ? 0 : 880, easing: "cubic-bezier(0.2, 0.7, 0.2, 1)" }
+        );
+        addInteraction();
+      });
+    }
+
+    function initCountdown() {
+      const eidSchedule = [
+        { date: "2026-03-20T00:00:00", label: "Eid al-Fitr 2026 (estimated)" },
+        { date: "2026-05-27T00:00:00", label: "Eid al-Adha 2026 (estimated)" },
+        { date: "2027-03-10T00:00:00", label: "Eid al-Fitr 2027 (estimated)" }
+      ];
+
+      const now = new Date();
+      let target = eidSchedule.find((d) => new Date(d.date) > now);
+      if (!target) target = eidSchedule[eidSchedule.length - 1];
+
+      refs.targetDate.textContent = `Target: ${target.label}`;
+      const targetTime = new Date(target.date).getTime();
+
+      const [d, h, m, s] = refs.countdown.querySelectorAll("strong");
+
+      const update = () => {
+        const current = Date.now();
+        const diff = Math.max(0, targetTime - current);
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const mins = Math.floor((diff / (1000 * 60)) % 60);
+        const secs = Math.floor((diff / 1000) % 60);
+
+        d.textContent = String(days).padStart(2, "0");
+        h.textContent = String(hours).padStart(2, "0");
+        m.textContent = String(mins).padStart(2, "0");
+        s.textContent = String(secs).padStart(2, "0");
+      };
+
+      update();
+      setInterval(update, 1000);
+    }
+
+    function initTasbih() {
+      const maxBeads = 33;
+      let count = 0;
+
+      const renderBeads = () => {
+        refs.beads.innerHTML = "";
+        for (let i = 0; i < maxBeads; i += 1) {
+          const b = document.createElement("span");
+          b.className = `bead${i < count % maxBeads ? " active" : ""}`;
+          refs.beads.appendChild(b);
+        }
+      };
+
+      const updateCount = () => {
+        refs.tasbihCount.textContent = String(count);
+        renderBeads();
+        if (count > 0 && count % 33 === 0) emitCoins(16);
+        if (count === 99) {
+          refs.easter.textContent = "99 reached. Eid excellence unlocked.";
+          refs.easter.style.borderStyle = "solid";
+          refs.easter.style.color = "#ffe9b0";
+          emitCoins(40);
+        }
+      };
+
+      const tap = () => {
+        count += 1;
+        addInteraction();
+        updateCount();
+      };
+
+      refs.tasbihTap.addEventListener("click", tap);
+      refs.tasbihReset.addEventListener("click", () => {
+        count = 0;
+        updateCount();
+      });
+
+      window.addEventListener("keydown", (e) => {
+        if (e.code === "Space") {
+          e.preventDefault();
+          tap();
+        }
+      });
+
+      updateCount();
+    }
+
+    function initDuaGenerator() {
+      const starts = [
+        "May your Eid be crowned with", "May your home overflow with", "May this Eid wrap you in", "May every step after Eid carry"
+      ];
+      const middles = [
+        "barakah, laughter, and late-night chai joy", "calm hearts, bright rizq, and sincere smiles", "forgiveness, family warmth, and brave dreams", "gentle sabr, golden moments, and answered duas"
+      ];
+      const ends = [
+        "Ameen.", "Today and always.", "With grace and sparkle.", "And then some extra joy on top."
+      ];
+
+      const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+      refs.newDua.addEventListener("click", () => {
+        refs.duaText.textContent = `${pick(starts)} ${pick(middles)} ${pick(ends)}`;
+        addInteraction();
+      });
+    }
+
+    function initQuoteStream() {
+      const quotes = [
+        "Eid is proof that joy can be both sacred and loud.",
+        "Collect moments, share food, forgive quickly.",
+        "Tonight's moon writes poetry in gold.",
+        "May your duas return with interest.",
+        "Elegance is saying Eid Mubarak like you mean it."
+      ];
+
+      let idx = 0;
+      let typing = null;
+
+      const typeLine = (text) => {
+        if (typing) clearInterval(typing);
+        refs.quoteText.textContent = "";
+        let i = 0;
+        typing = setInterval(() => {
+          refs.quoteText.textContent += text[i] || "";
+          i += 1;
+          if (i >= text.length) clearInterval(typing);
+        }, reduceMotion ? 0 : 32);
+      };
+
+      const next = () => {
+        idx = (idx + 1) % quotes.length;
+        typeLine(quotes[idx]);
+      };
+
+      refs.nextQuote.addEventListener("click", () => {
+        next();
+        addInteraction();
+      });
+
+      typeLine(quotes[idx]);
+      setInterval(next, 8000);
+    }
+
+    function initTiltCards() {
+      if (reduceMotion) return;
+      const cards = document.querySelectorAll("[data-tilt]");
+
+      cards.forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+          const box = card.getBoundingClientRect();
+          const x = (e.clientX - box.left) / box.width;
+          const y = (e.clientY - box.top) / box.height;
+          const rx = (0.5 - y) * 8;
+          const ry = (x - 0.5) * 10;
+          card.style.transform = `rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0)`;
+        });
+
+        card.addEventListener("pointerleave", () => {
+          card.style.transform = "rotateX(0deg) rotateY(0deg)";
+        });
+      });
+    }
+
+    function initQuickBurstOnLoad() {
+      if (reduceMotion) return;
+      setTimeout(() => emitCoins(20), 420);
+    }
+
+    function init() {
+      initMoonControl();
+      initStars();
+      initButtons();
+      initCountdown();
+      initTasbih();
+      initDuaGenerator();
+      initQuoteStream();
+      initTiltCards();
+      initQuickBurstOnLoad();
+    }
+
+    init();
+  </script>
+</body>
+</html>
